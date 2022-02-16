@@ -1,0 +1,59 @@
+[
+  {
+    "report_id": "e0083a52ae0eb23d3186173d403646079b45c715",
+    "titles": [
+      "KASAN: slab-out-of-bounds Write in usb_hcd_poll_rh_status",
+      "bad-access in usb_hcd_poll_rh_status"
+    ],
+    "report_ext_id": [
+      "44efe2787c962f3cc398",
+      "cb750da78aac61c258b3",
+      "2166dcd7c0193ad2e2e5",
+      "3ae6a2b06f131ab9849f"
+    ],
+    "report_link": [
+      "https://groups.google.com/d/msgid/syzkaller-upstream-moderation/000000000000b143b005ae9282e5%40google.com",
+      "https://groups.google.com/d/msgid/syzkaller-bugs/000000000000bbbbcf05aec86741%40google.com"
+    ],
+    "commits": [
+      "USB: Fix \"slab-out-of-bounds Write\" bug in usb_hcd_poll_rh_status"
+    ],
+    "commit_id": [
+      "1d7d4c07932e04355d6e6528d44a2f2c9e354346"
+    ],
+    "FirstTime": "2020-09-01 15:14:16.851623 UTC",
+    "LastReproTime": "2021-12-30 17:40:01.458632 UTC",
+    "LastSavedCrash": "2022-01-04 07:22:54.147883 UTC",
+    "LastActivity": "2022-01-13 10:55:50.025759 UTC",
+    "FixTime": "2022-01-03 14:25:28.660965 UTC",
+    "LastTime": "2022-01-04 07:22:54.147883 UTC"
+  },
+  {
+    "report_id": "00c573f2cdb88dadbf65549e1b8ca32344b18a96",
+    "titles": [
+      "KASAN: vmalloc-out-of-bounds Read in bpf_prog_put",
+      "bad-access in bpf_prog_put"
+    ],
+    "report_ext_id": [
+      "9fdc8dda7b361ee0d6a6",
+      "1f639a678880e95abd06",
+      "71a1a9dfcd319aade3fd",
+      "bb73e71cf4b8fd376a4f"
+    ],
+    "report_link": [
+      "https://groups.google.com/d/msgid/syzkaller-bugs/00000000000006fee605d38f0418%40google.com"
+    ],
+    "commits": [
+      "bpf, sockmap: Fix double bpf_prog_put on error case in map_link"
+    ],
+    "commit_id": [
+      "218d747a4142f281a256687bb513a135c905867b"
+    ],
+    "FirstTime": "2021-12-18 18:13:01.810258 UTC",
+    "LastReproTime": "2021-12-18 18:47:31.060901 UTC",
+    "LastSavedCrash": "2021-12-18 18:47:31.060901 UTC",
+    "LastActivity": "2022-01-04 21:30:10.236525 UTC",
+    "FixTime": "2022-01-05 20:43:14.854759 UTC",
+    "LastTime": "2021-12-18 18:47:31.060901 UTC"
+  }
+]

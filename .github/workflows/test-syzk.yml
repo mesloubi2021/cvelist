@@ -1,0 +1,16 @@
+name: Test Syzkaller Integration
+
+on:
+  workflow_dispatch:
+
+jobs:
+  syzk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - name: Test sqlite
+        run: |
+          wget https://linux-mirror-db.storage.googleapis.com/mirror.sl3
+          sqlite3 mirror.sl3 'SELECT * FROM cves LIMIT 1'

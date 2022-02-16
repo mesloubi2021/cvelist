@@ -12,5 +12,5 @@ jobs:
           fetch-depth: 1
       - name: Test sqlite
         run: |
-          wget https://linux-mirror-db.storage.googleapis.com/mirror.sl3
-          sqlite3 mirror.sl3 'SELECT * FROM cves LIMIT 1'
+          wget -q https://linux-mirror-db.storage.googleapis.com/mirror.sl3
+          sqlite3 mirror.sl3 'SELECT * FROM cve LIMIT 1'

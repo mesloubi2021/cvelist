@@ -16,7 +16,7 @@
       "c0aa87faf5e0794672a8b82cae2b0fadbdb90e7e",
       "ebc30b996e5c73b9412b96a423edd8d0c5b6949b"
     ],
-    "summary": "Vulnerability in the Linux Kernel USB subsystem caused a slab-out-of-bounds Write in usb_hcd_poll_rh_status.",
+    "summary": "Vulnerability in the Linux Kernel USB subsystem caused a slab-out-of-bounds Write in usb_hcd_poll_rh_status",
     "references": [
       "https://groups.google.com/d/msgid/syzkaller-upstream-moderation/000000000000b143b005ae9282e5%40google.com",
       "https://groups.google.com/d/msgid/syzkaller-bugs/000000000000bbbbcf05aec86741%40google.com",
@@ -52,7 +52,7 @@
       "88d8fdad8259590c4bfe66ada7d5c6526ddb295e",
       "073f7fb020b52832ab5a05d48fe1c9f73345652b"
     ],
-    "summary": "Vulnerability in the Linux Kernel bpf, sockmap subsystem caused a vmalloc-out-of-bounds Read in bpf_prog_put.",
+    "summary": "Vulnerability in the Linux Kernel bpf, sockmap subsystem caused a vmalloc-out-of-bounds Read in bpf_prog_put",
     "references": [
       "https://groups.google.com/d/msgid/syzkaller-bugs/00000000000006fee605d38f0418%40google.com",
       "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=218d747a4142f281a256687bb513a135c905867b",

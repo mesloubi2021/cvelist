@@ -6,7 +6,15 @@
       "cb750da78aac61c258b3",
       "2166dcd7c0193ad2e2e5",
       "3ae6a2b06f131ab9849f",
-      "1d7d4c07932e04355d6e6528d44a2f2c9e354346"
+      "1d7d4c07932e04355d6e6528d44a2f2c9e354346",
+      "02f3458289d29dadc03e5cfb038f8dab3f656c0c",
+      "1199f0928488199c30ade617cecccdf606a92fd2",
+      "2e7c5fffc28c128215297b09e427cb51e89f3f46",
+      "5472333dca4fee717afd7b7f5fb7dc4d893510a4",
+      "6e9f54c00728e2eb7fddfae93b72cedce3c768fd",
+      "a87cecf94375926e47c292c121fdbf3d3abd4782",
+      "c0aa87faf5e0794672a8b82cae2b0fadbdb90e7e",
+      "ebc30b996e5c73b9412b96a423edd8d0c5b6949b"
     ],
     "summary": "Vulnerability in the Linux Kernel USB subsystem caused a slab-out-of-bounds Write in usb_hcd_poll_rh_status.",
     "references": [
@@ -40,7 +48,9 @@
       "1f639a678880e95abd06",
       "71a1a9dfcd319aade3fd",
       "bb73e71cf4b8fd376a4f",
-      "218d747a4142f281a256687bb513a135c905867b"
+      "218d747a4142f281a256687bb513a135c905867b",
+      "88d8fdad8259590c4bfe66ada7d5c6526ddb295e",
+      "073f7fb020b52832ab5a05d48fe1c9f73345652b"
     ],
     "summary": "Vulnerability in the Linux Kernel bpf, sockmap subsystem caused a vmalloc-out-of-bounds Read in bpf_prog_put.",
     "references": [

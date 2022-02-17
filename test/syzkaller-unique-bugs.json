@@ -1,0 +1,67 @@
+[
+  {
+    "unique_ids": [
+      "e0083a52ae0eb23d3186173d403646079b45c715",
+      "44efe2787c962f3cc398",
+      "cb750da78aac61c258b3",
+      "2166dcd7c0193ad2e2e5",
+      "3ae6a2b06f131ab9849f",
+      "1d7d4c07932e04355d6e6528d44a2f2c9e354346"
+    ],
+    "summary": "Vulnerability in the Linux Kernel USB subsystem caused a slab-out-of-bounds Write in usb_hcd_poll_rh_status.",
+    "references": [
+      "https://groups.google.com/d/msgid/syzkaller-upstream-moderation/000000000000b143b005ae9282e5%40google.com",
+      "https://groups.google.com/d/msgid/syzkaller-bugs/000000000000bbbbcf05aec86741%40google.com",
+      "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=1d7d4c07932e04355d6e6528d44a2f2c9e354346",
+      "http://syzkaller.appspot.com/bug?id=e0083a52ae0eb23d3186173d403646079b45c715",
+      "https://lore.kernel.org/r/Yc+3UIQJ2STbxNua@rowland.harvard.edu"
+    ],
+    "versions": {
+      "fixed": [
+        "v5.17",
+        "v5.16.1",
+        "v5.15.15",
+        "v5.10.92",
+        "v5.4.172",
+        "v4.19.226",
+        "v4.14.263",
+        "v4.9.298",
+        "v4.4.300"
+      ],
+      "affected": []
+    },
+    "started": "2020-09-01 15:14:16.851623 UTC",
+    "fixed": "2022-01-03 14:25:28.660965 UTC"
+  },
+  {
+    "unique_ids": [
+      "00c573f2cdb88dadbf65549e1b8ca32344b18a96",
+      "9fdc8dda7b361ee0d6a6",
+      "1f639a678880e95abd06",
+      "71a1a9dfcd319aade3fd",
+      "bb73e71cf4b8fd376a4f",
+      "218d747a4142f281a256687bb513a135c905867b"
+    ],
+    "summary": "Vulnerability in the Linux Kernel bpf, sockmap subsystem caused a vmalloc-out-of-bounds Read in bpf_prog_put.",
+    "references": [
+      "https://groups.google.com/d/msgid/syzkaller-bugs/00000000000006fee605d38f0418%40google.com",
+      "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=218d747a4142f281a256687bb513a135c905867b",
+      "http://syzkaller.appspot.com/bug?id=00c573f2cdb88dadbf65549e1b8ca32344b18a96",
+      "https://lore.kernel.org/bpf/20220104214645.290900-1-john.fastabend@gmail.com"
+    ],
+    "versions": {
+      "fixed": [
+        "v5.17",
+        "v5.16.3",
+        "v5.15.17"
+        
+      ],
+      "affected": [
+        "v5.16",
+        "v5.15.8"
+      ]
+    },
+    "started": "2021-12-18 18:13:01.810258 UTC",
+    "fixed": "2022-01-05 20:43:14.854759 UTC"
+  }
+]

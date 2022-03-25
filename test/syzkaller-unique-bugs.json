@@ -22,7 +22,6 @@
       "https://groups.google.com/d/msgid/syzkaller-bugs/000000000000bbbbcf05aec86741%40google.com",
       "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=1d7d4c07932e04355d6e6528d44a2f2c9e354346",
       "http://syzkaller.appspot.com/bug?id=e0083a52ae0eb23d3186173d403646079b45c715",
-      "https://lore.kernel.org/r/Yc+3UIQJ2STbxNua@rowland.harvard.edu"
     ],
     "versions": {
       "fixed": [
@@ -37,9 +36,7 @@
         "v4.4.300"
       ],
       "affected": []
-    },
-    "started": "2020-09-01 15:14:16.851623 UTC",
-    "fixed": "2022-01-03 14:25:28.660965 UTC"
+    }
   },
   {
     "unique_ids": [
@@ -57,21 +54,18 @@
       "https://groups.google.com/d/msgid/syzkaller-bugs/00000000000006fee605d38f0418%40google.com",
       "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=218d747a4142f281a256687bb513a135c905867b",
       "http://syzkaller.appspot.com/bug?id=00c573f2cdb88dadbf65549e1b8ca32344b18a96",
-      "https://lore.kernel.org/bpf/20220104214645.290900-1-john.fastabend@gmail.com"
     ],
     "versions": {
       "fixed": [
         "v5.17",
         "v5.16.3",
         "v5.15.17"
-        
+
       ],
       "affected": [
         "v5.16",
         "v5.15.8"
       ]
-    },
-    "started": "2021-12-18 18:13:01.810258 UTC",
-    "fixed": "2022-01-05 20:43:14.854759 UTC"
+    }
   }
 ]

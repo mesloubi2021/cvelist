@@ -8,10 +8,18 @@ with open("test/syzkaller-api-response-get-bugs.json") as f:
     o = json.load(f)
     for bug in o:
         commits_q = ','.join('?'*len(bug["commit_id"]))
-        # print(bug)
         backports = []
         fixed_versions = []
         affected_versions = []
+        cur = conn.cursor()
+        cur.execute("SELECT reported_by FROM reported_by WHERE `commit` IN (%s)" %
+                    commits_q, bug["commit_id"])
+        reported_by_ids = []
+        for (reported_by,) in cur.fetchall():
+          syzkaller_id = re.match(
+              r"syzbot[+]([0-9a-f]+)?@syzkaller[.]appspotmail[.]com", reported_by)
+          if syzkaller_id:
+            reported_by_ids.append(syzkaller_id.group(1))
         cur = conn.cursor()
         cur.execute("SELECT `commit` FROM upstream WHERE upstream IN (%s)" %
                     commits_q, bug["commit_id"])
@@ -85,8 +93,8 @@ with open("test/syzkaller-api-response-get-bugs.json") as f:
 
         unique_bug = {
             "unique_ids":
-            [bug['report_id']] + bug['report_ext_id'] +
-                bug['commit_id'] + backports,
+            list(set([bug['report_id']] + bug['report_ext_id'] +
+                     bug['commit_id'] + backports)),
             "summary": "Vulnerability in the Linux Kernel%s caused %s" % (
                 subsystem, description),
             "references":

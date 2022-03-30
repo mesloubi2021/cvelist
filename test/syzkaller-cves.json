@@ -5,7 +5,7 @@
           "DATE_PUBLIC": "2022-01-01T13:37:00.000Z",
           "ID": "CVE-2022-0001",
           "STATE": "PUBLIC",
-          "TITLE": "Vulnerability the USB subsystem in the Linux Kernel up to v5.17 caused a slab-out-of-bounds Write in usb_hcd_poll_rh_status"
+          "TITLE": "Vulnerability the USB subsystem in the Linux Kernel up to v5.17 caused a slab-out-of-bounds write in usb_hcd_poll_rh_status"
       },
       "affects": {
           "vendor": {
@@ -108,7 +108,7 @@
           "description_data": [
               {
                   "lang": "eng",
-                  "value": "Vulnerability the USB subsystem in the Linux Kernel up to v5.17 caused a slab-out-of-bounds Write in usb_hcd_poll_rh_status"
+                  "value": "Vulnerability the USB subsystem in the Linux Kernel up to v5.17 caused a slab-out-of-bounds write in usb_hcd_poll_rh_status"
               }
           ]
       },
@@ -163,7 +163,7 @@
           "DATE_PUBLIC": "2022-01-01T13:37:00.000Z",
           "ID": "CVE-2022-0002",
           "STATE": "PUBLIC",
-          "TITLE": "Vulnerability in the bpf, sockmap subsystem in the Linux Kernel up to v5.17 caused a vmalloc-out-of-bounds Read in bpf_prog_put"
+          "TITLE": "Vulnerability in the bpf, sockmap subsystem in the Linux Kernel up to v5.17 caused a vmalloc-out-of-bounds read in bpf_prog_put"
       },
       "affects": {
           "vendor": {
@@ -218,7 +218,7 @@
           "description_data": [
               {
                   "lang": "eng",
-                  "value": "Vulnerability in the bpf, sockmap subsystem in the Linux Kernel up to v5.17 caused a vmalloc-out-of-bounds Read in bpf_prog_put"
+                  "value": "Vulnerability in the bpf, sockmap subsystem in the Linux Kernel up to v5.17 caused a vmalloc-out-of-bounds read in bpf_prog_put"
               }
           ]
       },

@@ -4,10 +4,9 @@ import json
 
 def main(argv):
   output = []
-  CVEs = ["CVE-2022-0001", "CVE-2022-0002"]
-  with open(argv[0]) as f:
-      o = json.load(f)
-      for cve_bug in o:
+  with open(argv[0]) as processed_file:
+      processed_bugs = json.load(processed_file)
+      for cve_bug in processed_bugs:
           if len(cve_bug['cves']) == 1:
               cve_num = cve_bug['cves'][0]
               # TODO: check if the cve belongs to us and is pending publication

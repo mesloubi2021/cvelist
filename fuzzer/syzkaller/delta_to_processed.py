@@ -2,13 +2,12 @@ import json
 import sqlite3
 import sys
 
-CVEs = ["CVE-2022-0001", "CVE-2022-0002"]
-
 
 def main(argv):
     cve_eligible_bugs = []
     conn = sqlite3.connect("mirror.sl3")
-    with open(argv[0]) as base_file, open(argv[1]) as delta_file:
+    with open(argv[0]) as base_file, open(argv[1]) as delta_file, open(argv[1]) as cves_file:
+        CVEs = json.load(cves_file)
         base = json.load(base_file)
         delta = json.load(delta_file)
         all_bugs = {}
@@ -52,12 +51,13 @@ def main(argv):
                 for (cve,) in results:
                     bug['cves'] = list(set(bug['cves'] + [cve]))
 
-    for cve_bug in cve_eligible_bugs:
-      if not len(cve_bug['cves']):
-        cve_num = CVEs.pop(0)
-        if not cve_num:
-            raise Exception("No CVEs left, :(")
-        cve_bug['cves'].append(cve_num)
+        for cve_bug in cve_eligible_bugs:
+            if not len(cve_bug['cves']):
+                cve_num = CVEs.pop(0)
+                if not cve_num:
+                    raise Exception("No CVEs left, :(")
+                cve_bug['cves'].append(cve_num)
+
     cve_eligible_bugs.sort(key=json.dumps)
     print(json.dumps(cve_eligible_bugs))
 

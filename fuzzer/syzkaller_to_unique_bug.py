@@ -4,7 +4,7 @@ import sqlite3
 
 conn = sqlite3.connect("mirror.sl3")
 
-with open("test/syzkaller-api-response-get-bugs.json") as f:
+with open("test/syzkaller-two-cves-api-response-get-bugs.json") as f:
     o = json.load(f)
     for bug in o:
         commits_q = ','.join('?'*len(bug["commit_id"]))

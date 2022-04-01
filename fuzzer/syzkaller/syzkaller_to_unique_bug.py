@@ -2,9 +2,10 @@ import json
 import re
 import sqlite3
 import sys
-
+from distutils.version import StrictVersion
 
 def main(argv):
+  output = []
   conn = sqlite3.connect("mirror.sl3")
   with open(argv[0]) as f:
     o = json.load(f)
@@ -34,7 +35,7 @@ def main(argv):
         for (tag,) in cur.fetchall():
             fixed_tags.append(tag)
         fixed_versions = [
-            re.match(r"(?:tags/(v[0-9.]*))?", tag).group(1) for tag in fixed_tags]
+            re.match(r"(?:tags/v([0-9.]*))?", tag).group(1) for tag in fixed_tags]
         cur = conn.cursor()
         cur.execute("SELECT fixes FROM fixes WHERE `commit` IN (%s)" %
                     commits_q, bug["commit_id"])
@@ -59,7 +60,7 @@ def main(argv):
             for (tag,) in cur.fetchall():
                 vuln_tags.append(tag)
             affected_versions = [
-                re.match(r"(?:tags/(v[0-9.]*))?", tag).group(1) for tag in vuln_tags]
+                re.match(r"(?:tags/v([0-9.]*))?", tag).group(1) for tag in vuln_tags]
         subsystems = []
         solutions = []
         for title in bug["commits"]:
@@ -93,11 +94,14 @@ def main(argv):
         else:
             description = ", ".join(problems)
 
+        fixed_versions.sort(key=StrictVersion, reverse=True)
+        affected_versions.sort(key=StrictVersion, reverse=True)
+        unique_ids = list(set([bug['report_id']] + bug['report_ext_id'] +
+                              bug['commit_id'] + backports))
+        unique_ids.sort()
         unique_bug = {
             "cves": [],
-            "unique_ids":
-            list(set([bug['report_id']] + bug['report_ext_id'] +
-                     bug['commit_id'] + backports)),
+            "unique_ids": unique_ids,
             "summary": "Vulnerability in the Linux Kernel%s caused %s" % (
                 subsystem, description),
             "references":
@@ -111,8 +115,8 @@ def main(argv):
                 "affected": affected_versions
             }
         }
-        print(unique_bug)
-
+        output.append(unique_bug)
+  print(json.dumps(output))
 
 if __name__ == "__main__":
    main(sys.argv[1:])

@@ -17,7 +17,9 @@
             "descriptions": [
               {
                 "lang": "en",
-                "description": "CWE-119: Improper Restriction of Operations within the Bounds of a Memory Buffer"
+                "description": "CWE-119: Improper Restriction of Operations within the Bounds of a Memory Buffer",
+                "cweId": "CWE-119",
+                "type": "CWE"
               }
             ]
           }
@@ -78,7 +80,7 @@
         "descriptions": [
           {
             "lang": "en",
-            "value": "Vulnerability the USB subsystem in the Linux Kernel up to v5.17 caused a slab-out-of-bounds write in usb_hcd_poll_rh_status"
+            "value": "Vulnerability in the Linux Kernel USB subsystem caused a slab-out-of-bounds write in usb_hcd_poll_rh_status"
           }
         ],
         "references": [
@@ -93,6 +95,13 @@
           },
           {
             "url": "http://syzkaller.appspot.com/bug?id=e0083a52ae0eb23d3186173d403646079b45c715"
+          }
+        ],
+        "credits": [
+          {
+            "lang": "en",
+            "value": "Syzkaller",
+            "type": "tool"
           }
         ]
       }
@@ -116,7 +125,9 @@
             "descriptions": [
               {
                 "lang": "en",
-                "description": "CWE-119: Improper Restriction of Operations within the Bounds of a Memory Buffer"
+                "description": "CWE-119: Improper Restriction of Operations within the Bounds of a Memory Buffer",
+                "cweId": "CWE-119",
+                "type": "CWE"
               }
             ]
           }
@@ -161,7 +172,7 @@
         "descriptions": [
           {
             "lang": "en",
-            "value": "Vulnerability in the Linux Kernel bpf, sockmap subsystem caused a vmalloc-out-of-bounds read in bpf_prog_put."
+            "value": "Vulnerability in the Linux Kernel bpf, sockmap subsystems caused a vmalloc-out-of-bounds read in bpf_prog_put"
           }
         ],
         "references": [
@@ -173,6 +184,13 @@
           },
           {
             "url": "http://syzkaller.appspot.com/bug?id=00c573f2cdb88dadbf65549e1b8ca32344b18a96"
+          }
+        ],
+        "credits": [
+          {
+            "lang": "en",
+            "value": "Syzkaller",
+            "type": "tool"
           }
         ]
       }

@@ -4,6 +4,7 @@ import sys
 
 
 def main(argv):
+  output = []
   conn = sqlite3.connect("mirror.sl3")
   cve_eligible_bugs = []
   with open(argv[0]) as f:
@@ -31,7 +32,8 @@ def main(argv):
                         bug['unique_ids'] = list(
                             set(bug['unique_ids'] + dupe_bug['unique_ids']))
 
-    unique_bugs = set([json.dumps(bug) for bug in all_bugs.values()])
+    unique_bugs = list(set([json.dumps(bug) for bug in all_bugs.values()]))
+    unique_bugs.sort(reverse=True)
 
     for bug_serialized in unique_bugs:
         bug = json.loads(bug_serialized)
@@ -89,11 +91,11 @@ def main(argv):
                                         "lessThan": "*",
                                         "status": ("unaffected" if cve_bug["versions"]["affected"] else "affected"),
                                         "changes": [
-                                          {"at": version[1:],
+                                          {"at": version,
                                               "status": "affected"}
                                           for version in cve_bug["versions"]["affected"]
                                         ] + [
-                                            {"at": version[1:],
+                                            {"at": version,
                                              "status": "unaffected"}
                                             for version in cve_bug["versions"]["fixed"]]
                                     }
@@ -118,7 +120,8 @@ def main(argv):
                     }
                 }
             }
-            print(cve_record)
+            output.append(cve_record)
+  print(json.dumps(output))
 
 # we can get the reproducer from
 # https://syzkaller.appspot.com/bug?id=00c573f2cdb88dadbf65549e1b8ca32344b18a96&json=1

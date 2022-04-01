@@ -2,19 +2,19 @@
   {
     "cves": [],
     "unique_ids": [
-      "e0083a52ae0eb23d3186173d403646079b45c715",
-      "44efe2787c962f3cc398",
-      "cb750da78aac61c258b3",
-      "2166dcd7c0193ad2e2e5",
-      "3ae6a2b06f131ab9849f",
-      "1d7d4c07932e04355d6e6528d44a2f2c9e354346",
       "02f3458289d29dadc03e5cfb038f8dab3f656c0c",
       "1199f0928488199c30ade617cecccdf606a92fd2",
+      "1d7d4c07932e04355d6e6528d44a2f2c9e354346",
+      "2166dcd7c0193ad2e2e5",
       "2e7c5fffc28c128215297b09e427cb51e89f3f46",
+      "3ae6a2b06f131ab9849f",
+      "44efe2787c962f3cc398",
       "5472333dca4fee717afd7b7f5fb7dc4d893510a4",
       "6e9f54c00728e2eb7fddfae93b72cedce3c768fd",
       "a87cecf94375926e47c292c121fdbf3d3abd4782",
       "c0aa87faf5e0794672a8b82cae2b0fadbdb90e7e",
+      "cb750da78aac61c258b3",
+      "e0083a52ae0eb23d3186173d403646079b45c715",
       "ebc30b996e5c73b9412b96a423edd8d0c5b6949b"
     ],
     "summary": "Vulnerability in the Linux Kernel USB subsystem caused a slab-out-of-bounds write in usb_hcd_poll_rh_status",
@@ -26,15 +26,15 @@
     ],
     "versions": {
       "fixed": [
-        "v5.17",
-        "v5.16.1",
-        "v5.15.15",
-        "v5.10.92",
-        "v5.4.172",
-        "v4.19.226",
-        "v4.14.263",
-        "v4.9.298",
-        "v4.4.300"
+        "5.17",
+        "5.16.1",
+        "5.15.15",
+        "5.10.92",
+        "5.4.172",
+        "4.19.226",
+        "4.14.263",
+        "4.9.298",
+        "4.4.300"
       ],
       "affected": []
     }
@@ -43,15 +43,15 @@
     "cves": [],
     "unique_ids": [
       "00c573f2cdb88dadbf65549e1b8ca32344b18a96",
-      "9fdc8dda7b361ee0d6a6",
-      "1f639a678880e95abd06",
-      "71a1a9dfcd319aade3fd",
-      "bb73e71cf4b8fd376a4f",
-      "218d747a4142f281a256687bb513a135c905867b",
       "073f7fb020b52832ab5a05d48fe1c9f73345652b",
-      "88d8fdad8259590c4bfe66ada7d5c6526ddb295e"
+      "1f639a678880e95abd06",
+      "218d747a4142f281a256687bb513a135c905867b",
+      "71a1a9dfcd319aade3fd",
+      "88d8fdad8259590c4bfe66ada7d5c6526ddb295e",
+      "9fdc8dda7b361ee0d6a6",
+      "bb73e71cf4b8fd376a4f"
     ],
-    "summary": "Vulnerability in the Linux Kernel bpf, sockmap subsystem caused a vmalloc-out-of-bounds read in bpf_prog_put",
+    "summary": "Vulnerability in the Linux Kernel bpf, sockmap subsystems caused a vmalloc-out-of-bounds read in bpf_prog_put",
     "references": [
       "https://groups.google.com/d/msgid/syzkaller-bugs/00000000000006fee605d38f0418%40google.com",
       "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=218d747a4142f281a256687bb513a135c905867b",
@@ -59,14 +59,14 @@
     ],
     "versions": {
       "fixed": [
-        "v5.17",
-        "v5.16.3",
-        "v5.15.17"
+        "5.17",
+        "5.16.3",
+        "5.15.17"
 
       ],
       "affected": [
-        "v5.16",
-        "v5.15.8"
+        "5.16",
+        "5.15.8"
       ]
     }
   }

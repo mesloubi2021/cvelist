@@ -1,5 +1,6 @@
 [
   {
+    "cves": [],
     "unique_ids": [
       "e0083a52ae0eb23d3186173d403646079b45c715",
       "44efe2787c962f3cc398",
@@ -39,6 +40,7 @@
     }
   },
   {
+    "cves": [],
     "unique_ids": [
       "00c573f2cdb88dadbf65549e1b8ca32344b18a96",
       "9fdc8dda7b361ee0d6a6",

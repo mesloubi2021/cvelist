@@ -92,6 +92,7 @@ with open("test/syzkaller-api-response-get-bugs.json") as f:
             description = ", ".join(problems)
 
         unique_bug = {
+            "cves": [],
             "unique_ids":
             list(set([bug['report_id']] + bug['report_ext_id'] +
                      bug['commit_id'] + backports)),

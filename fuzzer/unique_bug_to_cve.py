@@ -46,9 +46,78 @@ with open("test/syzkaller-two-cves-unique-bugs.json") as f:
             for (cve,) in results:
                 bug['cves'] = list(set(bug['cves'] + [cve]))
 
+    CVEs = ["CVE-2022-0001", "CVE-2022-0002"]
     for cve_bug in cve_eligible_bugs:
         if not len(cve_bug['cves']):
-            print("reserving cve for %s" % cve_bug)
+            cve_num = CVEs.pop(0)
+            if not cve_num:
+              raise Exception("No CVEs left, :(")
+            cve_record = {
+                "dataType": "CVE_RECORD",
+                "dataVersion": "5.0",
+                "cveMetadata": {
+                    "cveId": cve_num,
+                    "assignerOrgId": "923d8096-d055-4df2-b6f9-17416a335a76",
+                    "state": "PUBLISHED"
+                },
+                "containers": {
+                    "cna": {
+                        "providerMetadata": {
+                            "orgId": "923d8096-d055-4df2-b6f9-17416a335a76"
+                        },
+                        "problemTypes": [
+                            {
+                                "descriptions": [
+                                    {
+                                        "lang": "en",
+                                        "description": "CWE-119: Improper Restriction of Operations within the Bounds of a Memory Buffer",
+                                        "cweId": "CWE-119",
+                                        "type": "CWE"
+                                    }
+                                ]
+                            }
+                        ],
+                        "affected": [
+                            {
+                                "vendor": "Linux",
+                                "product": "Linux Kernel",
+                                "versions": [
+                                    {
+                                        "version": "0",
+                                        "versionType": "semver",
+                                        "lessThan": "*",
+                                        "status": ("unaffected" if cve_bug["versions"]["affected"] else "affected"),
+                                        "changes": [
+                                          {"at": version[1:],
+                                              "status": "affected"}
+                                          for version in cve_bug["versions"]["affected"]
+                                        ] + [
+                                            {"at": version[1:],
+                                             "status": "unaffected"}
+                                            for version in cve_bug["versions"]["fixed"]]
+                                    }
+                                ],
+                                "defaultStatus": "unaffected"
+                            }
+                        ],
+                        "descriptions": [
+                            {
+                                "lang": "en",
+                                "value": cve_bug["summary"]
+                            }
+                        ],
+                        "references": [{"url": ref} for ref in cve_bug["references"]],
+                        "credits": [
+                            {
+                                "lang": "en",
+                                "value": "Syzkaller",
+                                "type": "tool"
+                            }
+                        ]
+                    }
+                }
+            }
+            print(cve_record)
 
 # we can get the reproducer from
 # https://syzkaller.appspot.com/bug?id=00c573f2cdb88dadbf65549e1b8ca32344b18a96&json=1

@@ -1,10 +1,12 @@
 import json
 import re
 import sqlite3
+import sys
 
-conn = sqlite3.connect("mirror.sl3")
 
-with open("test/syzkaller-two-cves-api-response-get-bugs.json") as f:
+def main(argv):
+  conn = sqlite3.connect("mirror.sl3")
+  with open(argv[0]) as f:
     o = json.load(f)
     for bug in o:
         commits_q = ','.join('?'*len(bug["commit_id"]))
@@ -110,3 +112,7 @@ with open("test/syzkaller-two-cves-api-response-get-bugs.json") as f:
             }
         }
         print(unique_bug)
+
+
+if __name__ == "__main__":
+   main(sys.argv[1:])

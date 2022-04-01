@@ -1,11 +1,12 @@
 import json
 import sqlite3
+import sys
 
-conn = sqlite3.connect("mirror.sl3")
 
-cve_eligible_bugs = []
-
-with open("test/syzkaller-two-cves-unique-bugs.json") as f:
+def main(argv):
+  conn = sqlite3.connect("mirror.sl3")
+  cve_eligible_bugs = []
+  with open(argv[0]) as f:
     o = json.load(f)
     all_bugs = {}
     for bug in o:
@@ -121,3 +122,7 @@ with open("test/syzkaller-two-cves-unique-bugs.json") as f:
 
 # we can get the reproducer from
 # https://syzkaller.appspot.com/bug?id=00c573f2cdb88dadbf65549e1b8ca32344b18a96&json=1
+
+
+if __name__ == "__main__":
+   main(sys.argv[1:])

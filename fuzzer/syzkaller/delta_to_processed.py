@@ -8,10 +8,11 @@ CVEs = ["CVE-2022-0001", "CVE-2022-0002"]
 def main(argv):
     cve_eligible_bugs = []
     conn = sqlite3.connect("mirror.sl3")
-    with open(argv[0]) as f:
-        o = json.load(f)
+    with open(argv[0]) as base_file, open(argv[1]) as delta_file:
+        base = json.load(base_file)
+        delta = json.load(delta_file)
         all_bugs = {}
-        for bug in o:
+        for bug in base+delta:
             # check if there's a dupe syzkaller report
             is_dupe = False
             dupe_has_cve = False
@@ -32,6 +33,7 @@ def main(argv):
                             all_bugs[id] = bug
                             bug['unique_ids'] = list(
                                 set(bug['unique_ids'] + dupe_bug['unique_ids']))
+                            bug['unique_ids'].sort()
 
         unique_bugs = list(set([json.dumps(bug) for bug in all_bugs.values()]))
         unique_bugs.sort(reverse=True)
@@ -56,6 +58,7 @@ def main(argv):
         if not cve_num:
             raise Exception("No CVEs left, :(")
         cve_bug['cves'].append(cve_num)
+    cve_eligible_bugs.sort(key=json.dumps)
     print(json.dumps(cve_eligible_bugs))
 
 # we can get the reproducer from

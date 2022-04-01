@@ -2,8 +2,10 @@
 
 
 for dir in test/syzkaller/*/; do
-  diff <(python3 fuzzer/syzkaller/syzkaller_to_unique_bug.py ${dir}0-api-response-get-bugs.json | jq .) <(cat ${dir}1-unique-bugs.json | jq .)
+  diff <(python3 fuzzer/syzkaller/api_to_delta.py ${dir}0-api.json | jq .) <(cat ${dir}1-delta.json | jq .)
   echo STEP1: $?
-  diff <(python3 fuzzer/syzkaller/unique_bug_to_cve.py ${dir}1-unique-bugs.json | jq .) <(cat ${dir}2-cves5.json | jq .)
+  diff <(python3 fuzzer/syzkaller/delta_to_processed.py ${dir}1-delta.json | jq .) <(cat ${dir}2-processed.json | jq .)
   echo STEP2: $?
+  diff <(python3 fuzzer/syzkaller/processed_to_cve.py ${dir}2-processed.json | jq .) <(cat ${dir}3-cve.json | jq .)
+  echo STEP3: $?
 done

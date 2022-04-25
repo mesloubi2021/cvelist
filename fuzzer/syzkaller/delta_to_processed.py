@@ -6,7 +6,7 @@ import sys
 def main(argv):
     cve_eligible_bugs = []
     conn = sqlite3.connect("mirror.sl3")
-    with open(argv[0]) as base_file, open(argv[1]) as delta_file, open(argv[1]) as cves_file:
+    with open(argv[0]) as base_file, open(argv[1]) as delta_file, open(argv[2]) as cves_file:
         CVEs = json.load(cves_file)
         base = json.load(base_file)
         delta = json.load(delta_file)

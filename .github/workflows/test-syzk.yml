@@ -13,4 +13,4 @@ jobs:
       - name: Test sqlite
         run: |
           wget -q https://linux-mirror-db.storage.googleapis.com/mirror.sl3
-          sqlite3 -json mirror.sl3 'select `commit` `fixed_by`, iif(fixes<>"",substr(fixes, 0, instr(fixes, " ")),"0") `introduced_by` from fixes where `commit` in (select distinct `commit` from (select `commit` from reported_by union all select `commit` from syzkaller)) and `commit` NOT IN (select `commit` from `upstream`) and `commit` IN (select `commit` from `tags` WHERE `tags` NOT LIKE "tags/v%.%.%");'
+          sqlite3 -json mirror.sl3 'select `fixed_by`, (select `commit` from `tags` where `commit`>`fixes` and `commit`<`fixes`||"g" and length(`fixes`) > 4) `introduced_by` from (select `commit` `fixed_by`, iif(fixes<>"",substr(fixes, 0, instr(fixes, " ")),"0") `fixes` from `fixes` where `commit` in (select distinct `commit` from (select `commit` from reported_by union all select `commit` from syzkaller)) and `commit` NOT IN (select `commit` from `upstream`));'

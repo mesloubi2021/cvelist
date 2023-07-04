@@ -13,4 +13,4 @@ jobs:
       - name: Test sqlite
         run: |
           wget -q https://linux-mirror-db.storage.googleapis.com/mirror.sl3
-          sqlite3 mirror.sl3 'SELECT * FROM cve LIMIT 1'
+          sqlite3 -json mirror.sl3 'select `cve`, `commit` from `cve` where `commit` in (select `commit` from `syzkaller`);'

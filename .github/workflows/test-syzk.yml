@@ -13,4 +13,4 @@ jobs:
       - name: Test sqlite
         run: |
           wget -q https://linux-mirror-db.storage.googleapis.com/mirror.sl3
-          sqlite3 -json mirror.sl3 'select `fixed_by`, (select `commit` from `tags` where `commit`>`fixes` and `commit`<`fixes`||"g" and length(`fixes`) > 4) `introduced_by` from (select `commit` `fixed_by`, iif(fixes<>"",substr(fixes, 0, instr(fixes, " ")),"0") `fixes` from `fixes` where `commit` in (select distinct `commit` from (select `commit` from reported_by union all select `commit` from syzkaller)) and `commit` NOT IN (select `commit` from `upstream`));'
+          sqlite3 -json mirror.sl3 'SELECT `syzkaller_ref`, `fixed_by`, IIF(LENGTH(introduced_by_short)<4, null, (SELECT `commit` FROM tags WHERE `commit`>=`introduced_by_short` AND `commit`<`introduced_by_short`||"g")) `introduced_by` FROM (SELECT `syzkaller_ref`, `fixed_by`, (SELECT SUBSTR(`fixes`, 0, INSTR(`fixes`, " ")) FROM `fixes` WHERE `commit`=`fixed_by`) `introduced_by_short` FROM (SELECT `reported_by` `syzkaller_ref`, `commit` `fixed_by` FROM `reported_by` UNION ALL SELECT "FOOBAR" `syzkaller_ref`, `commit` `fixed_by` FROM syzkaller))'

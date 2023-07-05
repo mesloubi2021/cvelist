@@ -1,1 +1,2 @@
 mirror.sl3
+fuzzer/syzkaller/wget-log*

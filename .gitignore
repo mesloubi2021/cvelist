@@ -1,2 +1,5 @@
 mirror.sl3
 fuzzer/syzkaller/wget-log*
+fuzzer/syzkaller/unique.json
+fuzzer/syzkaller/delta.json
+fuzzer/syzkaller/processed.json

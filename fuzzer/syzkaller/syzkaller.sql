@@ -41,8 +41,8 @@ WITH `base` AS (
           SELECT
             SUBSTRING(
               `reported_by`,
-              INSTR(`reported_by`, "syzbot+") + LENGTH("syzbot+"),
-              INSTR(`reported_by`, "@") - INSTR(`reported_by`, "syzbot+") - LENGTH("syzbot+")
+              INSTR(`reported_by`, "bot+") + LENGTH("bot+"),
+              INSTR(`reported_by`, "@") - INSTR(`reported_by`, "bot+") - LENGTH("bot+")
             ) `syzkaller`,
             `commit` `fixed_by`
           FROM

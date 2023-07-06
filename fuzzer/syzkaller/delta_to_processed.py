@@ -5,7 +5,6 @@ import sys
 import uuid
 
 def main(argv):
-    conn = sqlite3.connect("mirror.sl3")
     with open(argv[0]) as base_file, open(argv[1]) as delta_file:
         base = json.load(base_file)
         delta = json.load(delta_file)

@@ -1,6 +1,14 @@
 import sys
 import json
 
+def get_reference_type(url):
+    if "git.kernel.org" in url:
+        return "FIX"
+    if "syzkaller.appspot.com" in url:
+        return "REPORT"
+    if "groups.google.com" in url:
+        return "DISCUSSION"
+    return "WEB"
 
 def main(argv):
   output = []
@@ -13,6 +21,12 @@ def main(argv):
                 "id": osv_num,
                 "summary": bug["summary"],
                 "details": bug["summary"],
+                "references": [
+                    {
+                        "type": get_reference_type(reference),
+                        "url": reference
+                    } for reference in bug["references"]
+                ],
                 "affected": [{
                     "package": {
                         "name": "Kernel",

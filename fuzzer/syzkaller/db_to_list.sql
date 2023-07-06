@@ -39,7 +39,7 @@ WITH `base` AS (
       FROM
         (
           SELECT
-            SUBSTRING(
+            'extid=' || SUBSTRING(
               `reported_by`,
               INSTR(`reported_by`, "bot+") + LENGTH("bot+"),
               INSTR(`reported_by`, "@") - INSTR(`reported_by`, "bot+") - LENGTH("bot+")
@@ -50,10 +50,10 @@ WITH `base` AS (
           WHERE
             `reported_by`
           LIKE
-            "%syzbot+%"
+            "%bot+%"
           UNION ALL
           SELECT
-            `syzkaller`,
+            'id=' || `syzkaller` `syzkaller`,
             `commit` `fixed_by`
           FROM
             `syzkaller`

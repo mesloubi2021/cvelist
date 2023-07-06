@@ -1,6 +1,4 @@
-import datetime
 import json
-import sqlite3
 import sys
 import uuid
 
@@ -9,13 +7,13 @@ def main(argv):
         base = json.load(base_file)
         delta = json.load(delta_file)
         all_bugs = {}
-        for bug in base+delta:
+        for bug in base + delta:
             is_dupe = False
             has_osv = len(bug['osvs']) > 0
             for id in bug['unique_ids']:
                 if id in all_bugs:
                     if has_osv and len(all_bugs[id]['osvs']) > 0:
-                        print("two OSVs share reference %s (%s and %s)" % (id, bug['osvs'], all_bugs[id]['osvs']))
+                        print("two OSVs share reference %s (%s and %s)" % (id, bug['osvs'], all_bugs[id]['osvs']), file=sys.stderr)
                     is_dupe = True
 
             if not is_dupe or has_osv:
@@ -38,7 +36,7 @@ def main(argv):
             bug = json.loads(bug_serialized)
             if not len(bug['osvs']):
                 bug['osvs'].append(str(uuid.uuid4()))
-                osv_eligible_bugs.append(bug)
+            osv_eligible_bugs.append(bug)
 
         print(json.dumps(osv_eligible_bugs))
 

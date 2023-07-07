@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-import itertools
 import json
 import sys
 
@@ -16,7 +15,7 @@ def main(argv):
             if not line:
                 break
             item = json.loads(line)
-            ids = item['syzkaller'] + item['fixed_by']
+            ids = item['syzkaller'] + item['fixed_by'] + item['cve']
             canonical = None
             for id in ids:
                 if id in unique_bugs:
@@ -32,7 +31,7 @@ def main(argv):
                     for key in canonical.keys():
                         canonical[key] = list(set(canonical[key] + unique_bugs[id][key]))
             
-            ids = canonical['syzkaller'] + canonical['fixed_by']
+            ids = canonical['syzkaller'] + canonical['fixed_by'] + canonical['cve']
             for id in ids:
                 unique_bugs[id] = canonical
         

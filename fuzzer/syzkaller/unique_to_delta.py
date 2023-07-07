@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-import itertools
 import json
 import sys
 
@@ -57,7 +56,7 @@ def main(argv):
                 bugs.append({
                     "cves": bug["cve"],
                     "osvs": [],
-                    "unique_ids": list(itertools.chain.from_iterable(bug.values())),
+                    "unique_ids": bug['cve'] + bug['fixed_by'] + bug ['syzkaller'],
                     "summary": summarize(commits, crashes),
                     "references": list(syzkaller_links),
                     "versions": {

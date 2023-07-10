@@ -1,5 +1,6 @@
 #!/bin/bash
 set -ex
+set -o pipefail
 
 function process_osv() {
     ./db_to_list.sh > list.json
@@ -13,4 +14,4 @@ wget -q -N https://linux-mirror-db.storage.googleapis.com/mirror.sl3
 wget -q -N https://linux-mirror-db.storage.googleapis.com/syzkaller.tar.gz
 tar xzf syzkaller.tar.gz syzkaller
 
-process_osv $1 output.json | jq -c .[]
+process_osv $1 output.json > output-tmp.json | jq -c .[]

@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 1
       - uses: 'google-github-actions/auth@v0.4.0'
         with:
-          workload_identity_provider: 'projects/799795028847/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
+          workload_identity_provider: 'projects/799795028847/locations/global/workloadIdentityPools/github-pool/providers/github-provider-new'
           service_account: 'github@sdcpocs.iam.gserviceaccount.com'
       - uses: actions/setup-python@v4
         with:

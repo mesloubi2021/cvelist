@@ -9,8 +9,8 @@ function process_osv() {
     python3 ./processed_to_osv.py $2
 }
 
-wget -q --show-progress -N https://linux-mirror-db.storage.googleapis.com/mirror.sl3
-wget -q --show-progress -N https://linux-mirror-db.storage.googleapis.com/syzkaller.tar.gz
+wget -q -N https://linux-mirror-db.storage.googleapis.com/mirror.sl3
+wget -q -N https://linux-mirror-db.storage.googleapis.com/syzkaller.tar.gz
 tar xzf syzkaller.tar.gz syzkaller
 
 process_osv $1 output.json | jq -c .[]

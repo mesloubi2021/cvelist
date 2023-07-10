@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 function process_osv() {
     ./db_to_list.sh > list.json

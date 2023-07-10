@@ -25,8 +25,8 @@ jobs:
       - name: Update syzkaller pipeline
         run: |
           cd fuzzer/syzkaller
-          ./process_osv.sh output.json > output-new.json
-          cat output-new.json | tee output.json
+          ./process_osv.sh output.json > output-new.json && (cat output-new.json | tee output.json)
+      - run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add output.json

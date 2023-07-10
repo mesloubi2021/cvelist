@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 
 import google.auth
-import google.auth.transport.requests
+from google.auth.transport.requests import AuthorizedSession
 
 import json
 import requests
 import sys
 
-def summarize(token, commits, crashes, upstream_fix, fixed_tags, vuln_tags):
+def summarize(authed_session, commits, crashes, upstream_fix, fixed_tags, vuln_tags):
     msgs = []
     for commit in upstream_fix:
         response = requests.get("https://kernel.googlesource.com/pub/scm/linux/kernel/git/stable/linux-stable/+/%s?format=json" % commit)
@@ -44,9 +44,8 @@ ANSWER: Use-after-free vulnerability in the qrtr subsystem of the Linux Kernel c
 
 EXAMPLE: CRASH: %s COMMITS: %s DESCRIPTION: %s
 ANSWER:""" % (json.dumps(list(crashes)), json.dumps(list(commits)), json.dumps(msgs))
-    response = requests.post(
-        url="https://us-central1-aiplatform.googleapis.com/v1/projects/sdcpocs/locations/us-central1/publishers/google/models/text-bison:predict",
-        headers={"authorization": "Bearer " + token},
+    response = authed_session.post(
+        'https://us-central1-aiplatform.googleapis.com/v1/projects/sdcpocs/locations/us-central1/publishers/google/models/text-bison:predict',
         json={"instances": [
             {
                 "prompt": prompt
@@ -72,8 +71,7 @@ ANSWER:""" % (json.dumps(list(crashes)), json.dumps(list(commits)), json.dumps(m
 def main(argv):
     creds, project = google.auth.default()
 
-    auth_req = google.auth.transport.requests.Request()
-    creds.refresh(auth_req)
+    authed_session = AuthorizedSession(creds)
 
     bugs = []
     if len(argv) < 1:
@@ -125,7 +123,7 @@ def main(argv):
                     "cves": bug["cve"],
                     "osvs": [],
                     "unique_ids": bug['cve'] + bug['fixed_by'] + bug ['syzkaller'],
-                    "summary": summarize(creds.token, commits, crashes, bug['fixed_by_upstream'], bug['fixed_by_tag'], bug['introduced_by_tag']),
+                    "summary": summarize(authed_session, commits, crashes, bug['fixed_by_upstream'], bug['fixed_by_tag'], bug['introduced_by_tag']),
                     "references": list(syzkaller_links),
                     "versions": {
                         "fixed": bug["fixed_by_upstream"] + bug["fixed_by_downstream"],

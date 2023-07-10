@@ -14,4 +14,4 @@ wget -q -N https://linux-mirror-db.storage.googleapis.com/mirror.sl3
 wget -q -N https://linux-mirror-db.storage.googleapis.com/syzkaller.tar.gz
 tar xzf syzkaller.tar.gz syzkaller
 
-process_osv output.json $1 | jq -c .[]
+process_osv $1 $2 | jq -c .[]

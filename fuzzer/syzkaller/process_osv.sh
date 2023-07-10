@@ -8,4 +8,8 @@ function process_osv() {
     python3 ./processed_to_osv.py $2
 }
 
-process_osv <(echo []) base.json | jq -c .[]
+wget -N https://linux-mirror-db.storage.googleapis.com/mirror.sl3
+wget -N https://linux-mirror-db.storage.googleapis.com/syzkaller.tar.gz
+tar xzf syzkaller.tar.gz syzkaller
+
+process_osv $1 base.json | jq -c .[]

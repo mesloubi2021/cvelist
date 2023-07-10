@@ -1,0 +1,22 @@
+name: Syzkaller Integration
+
+on:
+  workflow_dispatch:
+
+jobs:
+  syzk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - name: Update syzkaller pipeline
+        run: |
+          cd fuzzer/syzkaller
+          ./process_osv.sh output.json > output-new.json
+          cat output-new.json | tee output.json
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add output.json
+          git commit -m '[automatic] update output.json' || true
+          git push

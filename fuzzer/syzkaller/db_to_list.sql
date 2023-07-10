@@ -10,6 +10,22 @@ WITH `base` AS (
         WHERE
           `commit` = `fixed_by`
     ) `fixed_by`,
+    (
+        SELECT
+          `upstream`
+        FROM
+          `upstream`
+        WHERE
+          `commit` = `fixed_by`
+        UNION ALL
+        SELECT
+          `commit`
+        FROM
+          `tags`
+        WHERE
+          `commit` = `fixed_by`
+          AND LENGTH(REPLACE(`tags`, ".", "")) = LENGTH(`tags`) - 1
+    ) `fixed_by_upstream`,
     IIF(
       LENGTH(`introduced_by_short`)<4,
       null,
@@ -66,10 +82,11 @@ WITH `base` AS (
   (
     SELECT
       `syzkaller`,
+      `fixed_by_upstream`,
       `fixed_by`,
       (
         SELECT
-          SUBSTR(`tags`, 0, MIN(INSTR(`tags`||'~', '~'), INSTR(`tags`||'-', '-')))
+          SUBSTR(`tags`, 1 + LENGTH('tags/'), MIN(INSTR(`tags`||'~', '~'), INSTR(`tags`||'-', '-')) - LENGTH('tags/') - 1)
         FROM
           `tags`
         WHERE
@@ -78,7 +95,7 @@ WITH `base` AS (
       `introduced_by`,
       (
         SELECT
-          SUBSTR(`tags`, 0, MIN(INSTR(`tags`||'~', '~'), INSTR(`tags`||'-', '-')))
+          SUBSTR(`tags`, 1 + LENGTH('tags/'), MIN(INSTR(`tags`||'~', '~'), INSTR(`tags`||'-', '-')) - LENGTH('tags/') - 1)
         FROM
           `tags`
         WHERE
@@ -92,8 +109,12 @@ WITH `base` AS (
     SELECT
       `syzkaller`,
       `introduced_by`,
+      `introduced_by_tag`,
+      `fixed_by_upstream`,
+      (SELECT GROUP_CONCAT(`commit`, ',') FROM `upstream` WHERE `upstream`=`fixed_by_upstream`) `fixed_by_downstream`,
       `fixed_by`,
-      (SELECT `cve` FROM `cve` WHERE `commit`=`fixed_by`) `cve`
+      `fixed_by_tag`,
+      (SELECT GROUP_CONCAT(`cve`, ',') FROM `cve` WHERE `commit`=`fixed_by`) `cve`
     FROM
       `tagged`
     WHERE

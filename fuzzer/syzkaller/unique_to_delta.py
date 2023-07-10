@@ -1,12 +1,69 @@
 #!/usr/bin/python3
 
+import google.auth
+import google.auth.transport.requests
+
 import json
+import requests
 import sys
 
-def summarize(commits, crashes):
-    return "%s %s"%(";".join(commits), ";".join(crashes))
+def summarize(token, commits, crashes):
+    if False:
+        prompt = """Provide a summary following the template:
+    ```
+    [PROBLEMTYPE] in [COMPONENT] causes [IMPACT].
+    ```
+
+    Variables:
+    - PROBLEMTYPE: What root cause was fixed? (summarize what the memory corruption vulnerability that was fixed based on the patch commit message)
+    - IMPACT: What was the consequence? (explain what the crash title shows and what type of memory corruption happened)
+    - COMPONENT: In which subsystem was the bug? (extract this information from the commit title, affected files and reproducer)
+
+    EXAMPLE: CRASH: ["KASAN: slab-out-of-bounds Read in ntfs_listxattr"] COMMITS: ["ntfs: Fix panic about slab-out-of-bounds caused by ntfs_listxattr()"]
+    ANSWER: Slab out of bounds vulnerability on the ntfs subsystem caused by the function ntfs_listxattr.
+
+    EXAMPLE: CRASH: ["KASAN: use-after-free Read in __vma_adjust"] COMMITS: ["fix vma iteration in mas_for_each() loop"]
+    ANSWER: Use-after-free vulnerability on the mas_for_each function caused memory corruption.
+
+    EXAMPLE: CRASH: ["KASAN: null-ptr-deref Write in get_block (2)"] COMMITS: ["fs/sysv: Null check to prevent null-ptr-deref bug"]
+    ANSWER: Null pointer dereference in the fs/sysv subsystem of the Linux Kernel could be used to cause memory corruption.
+
+    EXAMPLE: CRASH: ["KASAN: slab-use-after-free Read in f2fs_truncate_data_blocks_range"] COMMITS: ["f2fs: fix to do sanity check on direct node in truncate_dnode()"]
+    ANSWER: Use after free vulnerability on the f2fs subsystem of the Linux Kernel on the truncate_dnode function causes potential memory corruption.
+
+    EXAMPLE: CRASH: ["KASAN: use-after-free Read in hci_send_acl"] COMMITS: ["Bluetooth: verify AMP hci_chan before amp_destroy"]
+    ANSWER: Use-after-free vulnerability in the bluetooth subsystem of the Linux Kernel on the hci_chan and amp_destroy functions could be used to cause memory corruption.
+
+    EXAMPLE: CRASH: %s COMMITS: %s
+    ANSWER:""" % (json.dumps(list(crashes)), json.dumps(list(commits)))
+        response = requests.post(
+            url="https://us-central1-aiplatform.googleapis.com/v1/projects/sdcpocs/locations/us-central1/publishers/google/models/text-bison:predict",
+            headers={"authorization": "Bearer " + token},
+            json={"instances": [
+                {
+                    "prompt": prompt
+                }],
+                "parameters": {
+                    "temperature": 0,
+                    "maxOutputTokens": 50,
+                    "topK": 1,
+                    "topP": 0.0
+                }
+            })
+        print(
+            (json.dumps(list(crashes)), json.dumps(list(commits))),
+            json.loads(response.content)["predictions"][0]['content'],
+            file=sys.stderr)
+        return json.loads(response.content)["predictions"][0]['content']
+    else:
+        return "%s %s"%(";".join(commits), ";".join(crashes))
 
 def main(argv):
+    creds, project = google.auth.default()
+
+    auth_req = google.auth.transport.requests.Request()
+    creds.refresh(auth_req)
+
     bugs = []
     if len(argv) < 1:
         raise Exception("No input file")
@@ -57,7 +114,7 @@ def main(argv):
                     "cves": bug["cve"],
                     "osvs": [],
                     "unique_ids": bug['cve'] + bug['fixed_by'] + bug ['syzkaller'],
-                    "summary": summarize(commits, crashes),
+                    "summary": summarize(creds.token, commits, crashes),
                     "references": list(syzkaller_links),
                     "versions": {
                         "fixed": bug["fixed_by"],

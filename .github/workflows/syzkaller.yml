@@ -7,9 +7,18 @@ jobs:
   syzk:
     runs-on: ubuntu-latest
     steps:
+      - uses: 'google-github-actions/auth@v0'
+        with:
+          workload_identity_provider: 'projects/799795028847/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
+          service_account: 'github@sdcpocs.iam.gserviceaccount.com'
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+      - run: pip install google-auth
       - name: Update syzkaller pipeline
         run: |
           cd fuzzer/syzkaller

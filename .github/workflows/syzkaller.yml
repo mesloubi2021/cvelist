@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: '3.9'
           cache: 'pip'
-      - run: pip install google-auth
+      - run: pip install google-auth requests
       - name: Update syzkaller pipeline
         run: |
           cd fuzzer/syzkaller

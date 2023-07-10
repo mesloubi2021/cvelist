@@ -69,7 +69,7 @@ ANSWER:""" % (json.dumps(list(crashes)), json.dumps(list(commits)), json.dumps(m
         print(e, response.content, file=sys.stderr)
 
 def main(argv):
-    creds, project = google.auth.default()
+    creds, project = google.auth.default(scopes=['https://www.googleapis.com/auth/cloud-platform'])
 
     authed_session = AuthorizedSession(creds)
 

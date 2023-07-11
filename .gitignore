@@ -12,3 +12,4 @@ fuzzer/syzkaller/syzkaller_extid.txt
 fuzzer/syzkaller/syzkaller_fixed.txt
 fuzzer/syzkaller/reported_by.csv
 fuzzer/syzkaller/syzkaller.csv
+fuzzer/syzkaller/summary.json

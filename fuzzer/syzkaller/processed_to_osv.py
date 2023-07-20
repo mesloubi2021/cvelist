@@ -20,7 +20,7 @@ def main(argv):
               osv_record = {
                 "id": osv_num,
                 "summary": bug["summary"],
-                "details": bug["summary"],
+                "details": bug["description"],
                 "references": [
                     {
                         "type": get_reference_type(reference),
